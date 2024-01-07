@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid()->index()->unique();
             $table->integer('user_id')->unsigned();
+            $table->integer('product_id')->unsigned();
             $table->text('content');
             $table->boolean('confirmed')->default(false);
             $table->timestamps();
