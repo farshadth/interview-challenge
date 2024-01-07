@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Product;
+use App\Models\ProductPrice;
 use App\Models\Provider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -28,5 +30,15 @@ class ProductFactory extends Factory
             'vote_status'              => $this->faker->boolean,
             'vote_status_after_buy'    => $this->faker->boolean,
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Product $product) {
+            $product->prices()->create([
+                'uuid'  => $this->faker->uuid,
+                'price' => $this->faker->numberBetween(1000, 100000),
+            ]);
+        });
     }
 }

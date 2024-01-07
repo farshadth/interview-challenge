@@ -38,4 +38,9 @@ class Product extends Model
     {
         return $this->hasMany(Vote::class, 'user_id');
     }
+
+    public function prices(): HasMany
+    {
+        return $this->hasMany(ProductPrice::class, 'product_id');
+    }
 }
