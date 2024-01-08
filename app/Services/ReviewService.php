@@ -45,7 +45,6 @@ class ReviewService
         return $products->map(function ($product) use ($votes) {
             $votes = $votes->firstWhere('product_id', $product->id);
             $votes = $votes['votes'] ?? collect([]);
-            $product->votes = VoteResource::collection($votes);
             $product->total_votes = $votes->count();
             $product->avg_votes = $votes->avg('rate');
 
