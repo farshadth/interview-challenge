@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use App\Actions\ProductPrice\getProductPriceAction;
+use App\Actions\ProductPrice\GetProductPriceAction;
 use Illuminate\Database\Eloquent\Collection;
 
 class EnquiryService
 {
     public function __construct(
-        private getProductPriceAction $getProductPriceAction,
+        private GetProductPriceAction $getProductPriceAction,
     )
     {
 
@@ -21,7 +21,7 @@ class EnquiryService
 
         return $products->map(function ($product) use ($productPrices) {
             $productPrice = $productPrices->firstWhere('product_id', $product->id);
-            $product->price = $productPrice->price ?? 0;
+            $product->price = $productPrice['price'] ?? 0;
 
             return $product;
         });

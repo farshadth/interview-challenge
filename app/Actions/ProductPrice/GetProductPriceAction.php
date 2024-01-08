@@ -5,7 +5,7 @@ namespace App\Actions\ProductPrice;
 use App\Models\ProductPrice;
 use Illuminate\Support\Collection;
 
-class getProductPriceAction
+class GetProductPriceAction
 {
     public function handle(array $productIds): Collection
     {

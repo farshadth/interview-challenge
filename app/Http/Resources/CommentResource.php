@@ -19,7 +19,6 @@ class CommentResource extends JsonResource
         return [
             'uuid'       => $this->uuid,
             'user'       => UserResource::make($this->user),
-            'product'    => ProductResource::make($this->product),
             'content'    => $this->content,
             'confirmed'  => $this->confirmed,
             'created_at' => $this->created_at,

@@ -20,6 +20,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
     public function query(array $payload = [])
     {
-        return $this->getModel();
+        return $this->getModel()->newQuery()
+            ->when($payload['status'], function (Builder $query) use ($payload) {
+                $query->where('status', $payload['status']);
+            });
     }
 }
