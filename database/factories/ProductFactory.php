@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Product;
 use App\Models\ProductPrice;
 use App\Models\Provider;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -35,9 +36,42 @@ class ProductFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (Product $product) {
-            $product->prices()->create([
-                'uuid'  => $this->faker->uuid,
-                'price' => $this->faker->numberBetween(1000, 100000),
+            $this->createPrice($product);
+            $this->createComments($product);
+            $this->createVotes($product);
+        });
+    }
+
+    private function createPrice(Product $product)
+    {
+        $product->prices()->create([
+            'uuid'  => $this->faker->uuid,
+            'price' => $this->faker->numberBetween(1000, 100000),
+        ]);
+    }
+
+    private function createComments(Product $product)
+    {
+        collect(range(0, mt_rand(1, 10)))->each(function () use ($product) {
+            $product->comments()->create([
+                'uuid'       => $this->faker->uuid,
+                'user_id'    => User::factory()->create()->id,
+                'product_id' => $product->id,
+                'content'    => $this->faker->text,
+                'confirmed'  => $this->faker->boolean,
+            ]);
+        });
+    }
+
+    private function createVotes(Product $product)
+    {
+        collect(range(0, mt_rand(1, 10)))->each(function () use ($product) {
+            $product->votes()->create([
+                'uuid'       => $this->faker->uuid,
+                'user_id'    => User::factory()->create()->id,
+                'product_id' => $product->id,
+                'rate'       => $this->faker->numberBetween(1, 5),
+                'confirmed'  => $this->faker->boolean,
             ]);
         });
     }

@@ -2,16 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Product\ProductRepositoryInterface;
+use App\Services\EnquiryService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function __construct(
+        private ProductRepositoryInterface $productRepository,
+        private EnquiryService $enquiryService,
+    )
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $products = $this->productRepository->all();
+        $products = $this->enquiryService->getPrices($products);
     }
 
     /**
