@@ -5,7 +5,7 @@ namespace App\Actions\Comment;
 use App\Repositories\Comment\CommentRepositoryInterface;
 use Illuminate\Support\Collection;
 
-class GetProductComments
+class GetProductCommentsAction
 {
     public function __construct(
         private CommentRepositoryInterface $commentRepository,

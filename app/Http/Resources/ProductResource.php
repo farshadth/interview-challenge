@@ -27,6 +27,9 @@ class ProductResource extends JsonResource
             'price'                    => $this->price,
             'comments'                 => $this->comments ?? [],
             'total_comments'           => $this->total_comments ?? 0,
+            'votes'                    => $this->votes ?? [],
+            'total_votes'              => $this->total_votes ?? 0,
+            'avg_votes'                => $this->avg_votes ?? 0,
             'created_at'               => $this->created_at,
             'updated_at'               => $this->updated_at,
         ];
